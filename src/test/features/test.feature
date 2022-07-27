@@ -7,11 +7,11 @@ Feature: Ranking test
     Then verify position "<posicion>", name "<nombre>", director "<director>", point "<nota>"
 
     Examples:
-      | posicion	| nombre 				| director 				| nota	|
-      | 1 		    | El padrino 			| Francis Ford Coppola	| 9.0 	|
-      | 3           | El padrino. Parte II	| Francis Ford Coppola	| 8.9 	|
-      | 5           | Breaking Bad 			| Vince Gilligan 		| 8.8 	|
-      | 19          | Pulp Fiction      	| Quentin Tarantino		| 8.6	|
+      | posicion  | nombre                | director              | nota  |
+      | 1         | El padrino            | Francis Ford Coppola  | 9.0   |
+      | 3         | El padrino. Parte II  | Francis Ford Coppola  | 8.9   |
+      | 5         | Breaking Bad          | Vince Gilligan        | 8.8   |
+      | 19        | Pulp Fiction          | Quentin Tarantino     | 8.6   |
 
   @high @topFilmaffinity @smokeTest
   Scenario: Top FilmAffinity web is displayed
