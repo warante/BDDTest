@@ -4,6 +4,7 @@ import com.google.common.io.Files;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -11,9 +12,9 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import pages.FilmPageFilmafinity;
 import pages.MainFilmaffinity;
 import pages.TopFilmaffinity;
-import utilities.SetDriver;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,12 +28,13 @@ public class BDDGenericTests {
     @Given("user is in filmaffinity")
     public void userIsInFilmaffinity() {
         driver.get(url);
+        MainFilmaffinity mainFilmaffinity = new MainFilmaffinity(driver);
+        mainFilmaffinity.closeBanner();
     }
 
     @When("user click on top button")
     public void userClickOnTopButton() {
         MainFilmaffinity mainFilmaffinity = new MainFilmaffinity(driver);
-        mainFilmaffinity.clickAcceptButton();
         mainFilmaffinity.clickTopFilmaffinity();
     }
 
@@ -56,7 +58,7 @@ public class BDDGenericTests {
 
     @Before
     public void setUp(){
-        String browser = "firefox"; //chrome | firefox
+        String browser = "chrome"; //chrome | firefox
         Boolean options = false;
         driver = utilities.DriverFactory.setDriver(browser, options);
     }
@@ -74,6 +76,24 @@ public class BDDGenericTests {
             }
         }
         driver.quit();
+    }
+
+    @When("user type the film name {string}")
+    public void userTypeTheFilmName(String text) {
+        MainFilmaffinity mainFilmaffinity = new MainFilmaffinity(driver);
+        mainFilmaffinity.setInputSearch(text);
+    }
+
+    @Then("verify title is {string}")
+    public void verifyTitleIs(String title) {
+        FilmPageFilmafinity filmPageFilmafinity = new FilmPageFilmafinity(driver);
+        Assert.assertEquals(filmPageFilmafinity.getFilmTitle(), title);
+    }
+
+    @And("click on first element")
+    public void clickOnFirstElement() {
+        MainFilmaffinity mainFilmaffinity = new MainFilmaffinity(driver);
+        mainFilmaffinity.clickOnFirstElement();
     }
 }
 
