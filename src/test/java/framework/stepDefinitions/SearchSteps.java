@@ -1,12 +1,12 @@
-package stepDefinitions;
+package framework.stepDefinitions;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import pages.FilmPageFilmafinity;
-import pages.MainFilmaffinity;
+import framework.pages.FilmPageFilmafinity;
+import framework.pages.MainFilmaffinity;
 
 public class SearchSteps {
     WebDriver driver;

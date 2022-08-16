@@ -1,5 +1,6 @@
-package pages;
+package framework.pages;
 
+import framework.utilities.Tools;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,9 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
-
-import static utilities.Tools.delay;
-import static utilities.Tools.setTextSequencial;
 
 public class MainFilmaffinity {
     WebDriver driver;
@@ -41,12 +39,12 @@ public class MainFilmaffinity {
     }
 
     public void setInputSearch(String text){
-        setTextSequencial(inputSearch, text, 10);
+        Tools.setTextSequencial(inputSearch, text, 10);
     }
 
     public void clickOnFirstElement() {
         inputSearch.click();
-        delay(2000);
+        Tools.delay(2000);
         WebElement item = itemsList.get(0);
         item.click();
     }

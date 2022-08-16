@@ -1,0 +1,16 @@
+
+name: E2E Tests
+
+on:
+  push:
+  # schedule:
+  #   - cron: "0 2 * * 1-5"
+  workflow_dispatch:
+
+jobs:
+  e2e_tests:
+    steps:
+      - name: launch all tests high
+        run: mvn clean test
+        continue-on-error: true
+

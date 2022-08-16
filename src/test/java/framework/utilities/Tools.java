@@ -1,4 +1,4 @@
-package utilities;
+package framework.utilities;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;

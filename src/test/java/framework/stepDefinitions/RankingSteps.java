@@ -1,9 +1,9 @@
-package stepDefinitions;
+package framework.stepDefinitions;
 
 import cucumber.api.java.en.Then;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import pages.TopFilmaffinity;
+import framework.pages.TopFilmaffinity;
 
 public class RankingSteps {
     WebDriver driver;

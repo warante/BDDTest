@@ -11,7 +11,7 @@ Feature: Ricky and Morty, api tests
       | https://rickandmortyapi.com/api   | /episode  | 2     | 200   |
       | https://rickandmortyapi.com/ap    | /episode  | 1     | 404   |
 
-  @high @get
+  @low @get
   Scenario Outline: Test episode name
     Given user set api URI "<uri>"
     When user set path "<path>" episode number "<episode>"
