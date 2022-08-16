@@ -9,6 +9,12 @@ on:
 
 jobs:
   e2e_tests:
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        #os: [ubuntu-20.04, windows-latest, macos-10.15]
+        os: [windows-latest]
+        
     steps:
       - name: launch all tests high
         run: mvn clean test
