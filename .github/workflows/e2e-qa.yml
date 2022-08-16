@@ -16,8 +16,9 @@ jobs:
         os: [windows-latest]
 
     steps:
+      - name: install maven dependencies
+        run: mvn install
+
       - name: launch all tests high
         run: mvn clean test
-        working-directory: ./
-        continue-on-error: true
 
