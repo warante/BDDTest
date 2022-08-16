@@ -22,6 +22,7 @@ jobs:
         run: mvn --batch-mode --update-snapshots package
 
   e2e_tests:
+    needs: build
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
