@@ -1,4 +1,4 @@
-name: "Run Tests On Demand"
+name: Run Tests On Demand
 
 on:
   workflow_dispatch:
