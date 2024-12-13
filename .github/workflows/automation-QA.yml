@@ -73,7 +73,7 @@ jobs:
           ref: ${{ github.event.inputs.branch }}
  
       - name: "Install dependencies with npm"
-        run: npm i
+        run: echo "bun i"
 
       - name: "Run tests"
         run: |
