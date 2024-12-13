@@ -3,25 +3,33 @@ name: Run Tests
 on:
   workflow_dispatch:
     inputs:
-      selphiVersion:
-        description: "Selphi version"
-        required: false
-      selphidVersion:
-        description: "Selphid version"
-        required: false
+      executionEnvironment:
+        description: "Widget"
+        required: true
+        default: selphi
+        type: choice
+        options:
+          - selphi
+          - selphid
+      widgetVersion:
+        description: "Widget version"
+        required: true
+        default: 6.8.0
       executionEnvironment:
         description: "Execution environment"
-        required: false
-        default: local
+        required: true
+        default: remote
         type: choice
         options:
           - remote
           - local
       projectName:
         description: "Project name"
-        required: true
+        required: true 
+        default: testingFromAction
         type: choice
         options:
+          - testingFromAction
           - selphi
           - selphid
       buildName:
@@ -33,8 +41,8 @@ on:
         required: true
         type: choice
         options:
-          - selphidRegression
           - selphiRegression
+          - selphidRegression
       deviceType:
         description: "Device type"
         required: true
@@ -82,14 +90,11 @@ jobs:
       - name: "Run tests"
         run: |
           params=""
-          if [ -n "${{ github.event.inputs.selphiVersion }}" ]; then
-            params="$params -selphiVersion ${{ github.event.inputs.selphiVersion }}"
+          if [ -n "${{ github.event.inputs.widgetVersion }}" ]; then
+            params="$params -selphiVersion ${{ github.event.inputs.widgetVersion }}"
           fi
-          if [ -n "${{ github.event.inputs.selphidVersion }}" ]; then
-            params="$params -selphidVersion ${{ github.event.inputs.selphidVersion }}"
-          fi
-          if [ -n "${{ github.event.inputs.urlBase }}" ]; then
-            params="$params -urlBase ${{ github.event.inputs.urlBase }}"
+          if [ -n "${{ github.event.inputs.widgetVersion }}" ]; then
+            params="$params -selphidVersion ${{ github.event.inputs.widgetVersion }}"
           fi
           if [ -n "${{ github.event.inputs.executionEnvironment }}" ]; then
             params="$params -executionEnvironment ${{ github.event.inputs.executionEnvironment }}"
