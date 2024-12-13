@@ -1,20 +1,13 @@
-name: Run Tests On Demand
+name: Run Tests
 
 on:
   workflow_dispatch:
     inputs:
-      branch:
-        description: "Branch to checkout and test"
-        required: true
-        default: "main"
       selphiVersion:
         description: "Selphi version"
         required: false
       selphidVersion:
         description: "Selphid version"
-        required: false
-      urlBase:
-        description: "Base URL"
         required: false
       executionEnvironment:
         description: "Execution environment"
