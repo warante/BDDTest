@@ -1,4 +1,4 @@
-name: Run Tests
+name: Run QA-Tests
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ on:
       widgetVersion:
         description: "Widget version"
         required: true
-        default: 6.8.0
+        default: "6.8.0"
       executionEnvironment:
         description: "Execution environment"
         required: true
@@ -41,8 +41,9 @@ on:
         required: true
         type: choice
         options:
-          - selphiRegression
-          - selphidRegression
+          - regression
+          - compatibility
+          - examples
       deviceType:
         description: "Device type"
         required: true
@@ -88,35 +89,20 @@ jobs:
         run: echo "bun i"
 
       - name: "Run tests"
-        run: |
+        run: |          
           params=""
-          if [ -n "${{ github.event.inputs.widgetVersion }}" ]; then
-            params="$params -selphiVersion ${{ github.event.inputs.widgetVersion }}"
-          fi
-          if [ -n "${{ github.event.inputs.widgetVersion }}" ]; then
-            params="$params -selphidVersion ${{ github.event.inputs.widgetVersion }}"
-          fi
-          if [ -n "${{ github.event.inputs.executionEnvironment }}" ]; then
-            params="$params -executionEnvironment ${{ github.event.inputs.executionEnvironment }}"
-          fi
-          if [ -n "${{ github.event.inputs.projectName }}" ]; then
-            params="$params -projectName ${{ github.event.inputs.projectName }}"
-          fi
+          params="$params -selphiVersion ${{ github.event.inputs.widgetVersion }}"
+          params="$params -selphidVersion ${{ github.event.inputs.widgetVersion }}"
+          params="$params -executionEnvironment ${{ github.event.inputs.executionEnvironment }}"
+          params="$params -projectName ${{ github.event.inputs.projectName }}"
+          params="$params -deviceType ${{ github.event.inputs.deviceType }}"
+          params="$params -env ${{ github.event.inputs.env }}"
+          params="$params -engine ${{ github.event.inputs.engine }}"
+          params="$params -testsFile ${{ github.event.inputs.widget }}${{ github.event.inputs.testsFile }}"
           if [ -n "${{ github.event.inputs.buildName }}" ]; then
             params="$params -buildName ${{ github.event.inputs.buildName }}"
           fi
-          if [ -n "${{ github.event.inputs.testsFile }}" ]; then
-            params="$params -testsFile ${{ github.event.inputs.testsFile }}"
-          fi
-          if [ -n "${{ github.event.inputs.deviceType }}" ]; then
-            params="$params -deviceType ${{ github.event.inputs.deviceType }}"
-          fi
-          if [ -n "${{ github.event.inputs.env }}" ]; then
-            params="$params -env ${{ github.event.inputs.env }}"
-          fi
-          if [ -n "${{ github.event.inputs.engine }}" ]; then
-            params="$params -engine ${{ github.event.inputs.engine }}"
-          fi
+          
           if [ -n "${{ github.event.inputs.test }}" ]; then
             params="$params -test ${{ github.event.inputs.test }}"
           fi
