@@ -78,7 +78,7 @@ jobs:
           export PATH="/home/runner/.bun/bin:$PATH"
 
       - name: "Install dependencies with Bun"
-        run: bun i
+        run: bun install
 
       - name: "Run tests"
         run: |
