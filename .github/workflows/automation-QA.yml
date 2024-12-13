@@ -12,7 +12,7 @@ on:
       executionEnvironment:
         description: "Execution environment"
         required: false
-        default: "local"
+        default: local
         type: choice
         options:
           - remote
@@ -27,6 +27,7 @@ on:
       buildName:
         description: "Build name"
         required: false
+        default: testing
       testsFile:
         description: "Tests file"
         required: true
@@ -38,6 +39,7 @@ on:
         description: "Device type"
         required: true
         type: choice
+        default: android
         options:
           - android
           - ios
@@ -47,14 +49,16 @@ on:
         description: "Environment"
         required: true
         type: choice
+        default: QA
         options:
-          - IO
           - QA
+          - IO
           - LOCALHOST
       engine:
         description: "Engine type"
         required: true
         type: choice
+        default: MB
         options:
           - MB
           - FirstParty
@@ -79,37 +83,37 @@ jobs:
         run: |
           params=""
           if [ -n "${{ github.event.inputs.selphiVersion }}" ]; then
-            params="$params -selphiVersion \"${{ github.event.inputs.selphiVersion }}\""
+            params="$params -selphiVersion ${{ github.event.inputs.selphiVersion }}"
           fi
           if [ -n "${{ github.event.inputs.selphidVersion }}" ]; then
-            params="$params -selphidVersion \"${{ github.event.inputs.selphidVersion }}\""
+            params="$params -selphidVersion ${{ github.event.inputs.selphidVersion }}"
           fi
           if [ -n "${{ github.event.inputs.urlBase }}" ]; then
-            params="$params -urlBase \"${{ github.event.inputs.urlBase }}\""
+            params="$params -urlBase ${{ github.event.inputs.urlBase }}"
           fi
           if [ -n "${{ github.event.inputs.executionEnvironment }}" ]; then
-            params="$params -executionEnvironment \"${{ github.event.inputs.executionEnvironment }}\""
+            params="$params -executionEnvironment ${{ github.event.inputs.executionEnvironment }}"
           fi
           if [ -n "${{ github.event.inputs.projectName }}" ]; then
-            params="$params -projectName \"${{ github.event.inputs.projectName }}\""
+            params="$params -projectName ${{ github.event.inputs.projectName }}"
           fi
           if [ -n "${{ github.event.inputs.buildName }}" ]; then
-            params="$params -buildName \"${{ github.event.inputs.buildName }}\""
+            params="$params -buildName ${{ github.event.inputs.buildName }}"
           fi
           if [ -n "${{ github.event.inputs.testsFile }}" ]; then
-            params="$params -testsFile \"${{ github.event.inputs.testsFile }}\""
+            params="$params -testsFile ${{ github.event.inputs.testsFile }}"
           fi
           if [ -n "${{ github.event.inputs.deviceType }}" ]; then
-            params="$params -deviceType \"${{ github.event.inputs.deviceType }}\""
+            params="$params -deviceType ${{ github.event.inputs.deviceType }}"
           fi
           if [ -n "${{ github.event.inputs.env }}" ]; then
-            params="$params -env \"${{ github.event.inputs.env }}\""
+            params="$params -env ${{ github.event.inputs.env }}"
           fi
           if [ -n "${{ github.event.inputs.engine }}" ]; then
-            params="$params -engine \"${{ github.event.inputs.engine }}\""
+            params="$params -engine ${{ github.event.inputs.engine }}"
           fi
           if [ -n "${{ github.event.inputs.test }}" ]; then
-            params="$params -test \"${{ github.event.inputs.test }}\""
+            params="$params -test ${{ github.event.inputs.test }}"
           fi
           echo "npm run cliAuto $params"
 
