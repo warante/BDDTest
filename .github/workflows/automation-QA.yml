@@ -83,5 +83,40 @@ jobs:
         run: bun i
 
       - name: "Run tests"
-        run: 
+        run: |
+          params=""
+          if [ -n "${{ github.event.inputs.selphiVersion }}" ]; then
+            params="$params -selphiVersion \"${{ github.event.inputs.selphiVersion }}\""
+          fi
+          if [ -n "${{ github.event.inputs.selphidVersion }}" ]; then
+            params="$params -selphidVersion \"${{ github.event.inputs.selphidVersion }}\""
+          fi
+          if [ -n "${{ github.event.inputs.urlBase }}" ]; then
+            params="$params -urlBase \"${{ github.event.inputs.urlBase }}\""
+          fi
+          if [ -n "${{ github.event.inputs.executionEnvironment }}" ]; then
+            params="$params -executionEnvironment \"${{ github.event.inputs.executionEnvironment }}\""
+          fi
+          if [ -n "${{ github.event.inputs.projectName }}" ]; then
+            params="$params -projectName \"${{ github.event.inputs.projectName }}\""
+          fi
+          if [ -n "${{ github.event.inputs.buildName }}" ]; then
+            params="$params -buildName \"${{ github.event.inputs.buildName }}\""
+          fi
+          if [ -n "${{ github.event.inputs.testsFile }}" ]; then
+            params="$params -testsFile \"${{ github.event.inputs.testsFile }}\""
+          fi
+          if [ -n "${{ github.event.inputs.deviceType }}" ]; then
+            params="$params -deviceType \"${{ github.event.inputs.deviceType }}\""
+          fi
+          if [ -n "${{ github.event.inputs.env }}" ]; then
+            params="$params -env \"${{ github.event.inputs.env }}\""
+          fi
+          if [ -n "${{ github.event.inputs.engine }}" ]; then
+            params="$params -engine \"${{ github.event.inputs.engine }}\""
+          fi
+          if [ -n "${{ github.event.inputs.test }}" ]; then
+            params="$params -test \"${{ github.event.inputs.test }}\""
+          fi
           echo "bun run cliAuto $params"
+
