@@ -1,0 +1,121 @@
+name: "Run Tests On Demand"
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to checkout and test"
+        required: true
+        default: "main"
+      selphiVersion:
+        description: "Selphi version"
+        required: false
+      selphidVersion:
+        description: "Selphid version"
+        required: false
+      urlBase:
+        description: "Base URL"
+        required: false
+      executionEnvironment:
+        description: "Execution environment"
+        required: false
+        default: "local"
+        type: choice
+        options:
+          - remote
+          - local
+      projectName:
+        description: "Project name"
+        required: true
+        type: choice
+        options:
+          - selphi
+          - selphid
+      buildName:
+        description: "Build name"
+        required: false
+      testsFile:
+        description: "Tests file"
+        required: true
+        type: choice
+        options:
+          - selphidRegression
+          - selphiRegression
+      deviceType:
+        description: "Device type"
+        required: true
+        type: choice
+        options:
+          - android
+          - ios
+          - windows
+          - macos
+      env:
+        description: "Environment"
+        required: true
+        type: choice
+        options:
+          - IO
+          - QA
+          - LOCALHOST
+      engine:
+        description: "Engine type"
+        required: true
+        type: choice
+        options:
+          - MB
+          - FirstParty
+      test:
+        description: "Specific test"
+        required: false
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: "Install dependencies with Bun"
+        run: bun i
+
+        - name: "Run tests"
+        run: |
+          params=""
+          if [ -n "${{ github.event.inputs.selphiVersion }}" ]; then
+            params="$params -selphiVersion \"${{ github.event.inputs.selphiVersion }}\""
+          fi
+          if [ -n "${{ github.event.inputs.selphidVersion }}" ]; then
+            params="$params -selphidVersion \"${{ github.event.inputs.selphidVersion }}\""
+          fi
+          if [ -n "${{ github.event.inputs.urlBase }}" ]; then
+            params="$params -urlBase \"${{ github.event.inputs.urlBase }}\""
+          fi
+          if [ -n "${{ github.event.inputs.executionEnvironment }}" ]; then
+            params="$params -executionEnvironment \"${{ github.event.inputs.executionEnvironment }}\""
+          fi
+          if [ -n "${{ github.event.inputs.projectName }}" ]; then
+            params="$params -projectName \"${{ github.event.inputs.projectName }}\""
+          fi
+          if [ -n "${{ github.event.inputs.buildName }}" ]; then
+            params="$params -buildName \"${{ github.event.inputs.buildName }}\""
+          fi
+          if [ -n "${{ github.event.inputs.testsFile }}" ]; then
+            params="$params -testsFile \"${{ github.event.inputs.testsFile }}\""
+          fi
+          if [ -n "${{ github.event.inputs.deviceType }}" ]; then
+            params="$params -deviceType \"${{ github.event.inputs.deviceType }}\""
+          fi
+          if [ -n "${{ github.event.inputs.env }}" ]; then
+            params="$params -env \"${{ github.event.inputs.env }}\""
+          fi
+          if [ -n "${{ github.event.inputs.engine }}" ]; then
+            params="$params -engine \"${{ github.event.inputs.engine }}\""
+          fi
+          if [ -n "${{ github.event.inputs.test }}" ]; then
+            params="$params -test \"${{ github.event.inputs.test }}\""
+          fi
+          echo "bun run cliAuto $params"
